@@ -13,6 +13,8 @@ import 'package:social_app/screens/home.dart';
 import 'package:social_app/screens/signup.dart';
 import 'package:social_app/widgets/text_field.dart';
 
+import '../widgets/logo.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -68,11 +70,12 @@ class _SignInState extends State<SignIn> {
                     child: Container(),
                     flex: 2,
                   ),
-                  SvgPicture.asset(
-                    "assets/images/ic_instagram.svg",
-                    color: primaryColor,
-                    height: 60,
-                  ),
+                  Logo(),
+                  // SvgPicture.asset(
+                  //   "assets/images/ic_instagram.svg",
+                  //   color: primaryColor,
+                  //   height: 60,
+                  // ),
                   const SizedBox(
                     height: 64,
                   ),

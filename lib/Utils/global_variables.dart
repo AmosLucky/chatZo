@@ -14,3 +14,5 @@ var homeScreenItems = [
   FriendList(),
   Profile(where: "profile")
 ];
+
+var appName = "ChatZo";

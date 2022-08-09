@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_app/Utils/colors.dart';
+import 'package:social_app/Utils/global_variables.dart';
 import 'package:social_app/resources/auth_methods.dart';
 import 'package:social_app/responsive/mobile_screen_layout.dart';
 import 'package:social_app/responsive/responsive_layout.dart';
@@ -14,6 +15,7 @@ import 'package:social_app/widgets/text_field.dart';
 import 'package:social_app/Utils/utils.dart';
 
 import '../responsive/web_screen_layout.dart';
+import '../widgets/logo.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -77,11 +79,12 @@ class _SignUpState extends State<SignUp> {
                     child: Container(),
                     flex: 2,
                   ),
-                  SvgPicture.asset(
-                    "assets/images/ic_instagram.svg",
-                    color: primaryColor,
-                    height: 64,
-                  ),
+                  Logo(),
+                  // SvgPicture.asset(
+                  //   "assets/images/ic_instagram.svg",
+                  //   color: primaryColor,
+                  //   height: 64,
+                  // ),
                   const SizedBox(height: 20),
                   Stack(
                     children: [
