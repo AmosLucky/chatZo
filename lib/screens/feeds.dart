@@ -57,7 +57,7 @@ class _FeedsState extends State<Feeds> {
               backgroundColor: blueColor,
               title: Text(
                 appName,
-                style: TextStyle(color: Colors.white, fontFamily: "Roboto"),
+                style: TextStyle(color: Colors.white, fontFamily: "Raleway"),
               ),
               // title: SvgPicture.network(
               //   "assets/images/ic_instagram.svg",

@@ -66,12 +66,11 @@ class _ChatScreenState extends State<ChatScreen> {
     var currentUser = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leadingWidth: 0,
-        leading: Container(),
+        //automaticallyImplyLeading: true,
+        //leadingWidth: 0,
         title: Row(children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.only(left: 0),
             child: CircleAvatar(
                 radius: 18,
                 backgroundImage: NetworkImage(widget.receiver.photoUrl)),

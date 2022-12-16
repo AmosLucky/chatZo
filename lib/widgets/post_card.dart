@@ -11,8 +11,10 @@ import 'package:social_app/Utils/dimensions.dart';
 import 'package:social_app/Utils/utils.dart';
 import 'package:social_app/models/User.dart';
 import 'package:social_app/models/post.dart';
+import 'package:social_app/resources/auth_methods.dart';
 import 'package:social_app/resources/firestore_methods.dart';
 import 'package:social_app/screens/comment.dart';
+import 'package:social_app/screens/profile.dart';
 import 'package:social_app/widgets/like_animation.dart';
 
 import '../providers/user_provider.dart';
@@ -30,6 +32,7 @@ class _PostCardState extends State<PostCard> {
   bool isLikeAnimating = false;
   int commentLen = 0;
   User? user;
+  User? author;
 
   void getCommentLength() async {
     user = widget.user;
@@ -48,9 +51,14 @@ class _PostCardState extends State<PostCard> {
     }
   }
 
+  getAuthor() async {
+    author = await AuthMethods().getUserById(widget.post.uid);
+  }
+
   @override
   void initState() {
     getCommentLength();
+    getAuthor();
     // TODO: implement initState
     super.initState();
   }
@@ -76,22 +84,40 @@ class _PostCardState extends State<PostCard> {
           ).copyWith(right: 0),
           margin: EdgeInsets.only(bottom: 10),
           child: Row(children: [
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: NetworkImage(widget.post.profileImage),
+            InkWell(
+              onTap: () {
+                var route = MaterialPageRoute(
+                    builder: (BuildContext) => Profile(user: author));
+                Navigator.push(context, route);
+              },
+              child: CircleAvatar(
+                radius: 16,
+                backgroundImage: NetworkImage(widget.post.profileImage),
+              ),
             ),
             Expanded(
-                child: Padding(
-              padding: EdgeInsets.only(left: 8),
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.post.username,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ]),
+                child: InkWell(
+              // onTap: (){
+              onTap: () {
+                var route = MaterialPageRoute(
+                    builder: (BuildContext) => Profile(
+                          user: user!,
+                          where: "others",
+                        ));
+                Navigator.push(context, route);
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 8),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.post.username,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )
+                    ]),
+              ),
             )),
             widget.post.uid == user!.uid
                 ? IconButton(

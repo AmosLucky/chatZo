@@ -59,25 +59,28 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: SafeArea(
+        body: SingleChildScrollView(
             child: Container(
                 padding: size.width > webScreenSize
                     ? EdgeInsets.symmetric(horizontal: size.width / 3)
                     : const EdgeInsets.symmetric(horizontal: 32),
                 width: double.infinity,
                 child: Column(children: [
-                  Flexible(
-                    child: Container(),
-                    flex: 2,
+                  SizedBox(
+                    height: size.height / 4,
                   ),
+                  // Flexible(
+                  //   child: Container(),
+                  //   flex: 2,
+                  // ),
                   Logo(),
                   // SvgPicture.asset(
                   //   "assets/images/ic_instagram.svg",
                   //   color: primaryColor,
                   //   height: 60,
                   // ),
-                  const SizedBox(
-                    height: 64,
+                  SizedBox(
+                    height: size.height / 7,
                   ),
                   TextInputField(
                       textEditingController: _emailController,
@@ -119,10 +122,10 @@ class _SignInState extends State<SignIn> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Flexible(
-                    child: Container(),
-                    flex: 2,
-                  ),
+                  // Flexible(
+                  //   child: Container(),
+                  //   flex: 2,
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

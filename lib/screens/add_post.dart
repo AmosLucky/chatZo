@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:social_app/Utils/global_variables.dart';
 import 'package:social_app/models/User.dart';
 import 'package:social_app/Utils/colors.dart';
 import 'package:social_app/Utils/utils.dart';
@@ -69,19 +70,27 @@ class _AddPostState extends State<AddPost> {
   }
 
   void postImage(String uid, String username, String profileImage) async {
-    setState(() {
-      isLoading = true;
-    });
     try {
-      String res = await FirestoreMethod().uploadPost(
-          _textEditingController.text, _file!, uid, username, profileImage);
+      if (_textEditingController.text.length > 2) {
+        if (_file != null) {
+          setState(() {
+            isLoading = true;
+          });
+          String res = await FirestoreMethod().uploadPost(
+              _textEditingController.text, _file!, uid, username, profileImage);
 
-      if (res == "success") {
-        showSnackBar(res, context);
-        _textEditingController.clear();
-        clearImage();
+          if (res == "success") {
+            showSnackBar(res, context);
+            _textEditingController.clear();
+            clearImage();
+          } else {
+            showSnackBar(res, context);
+          }
+        } else {
+          showSnackBar("Please select  image", context);
+        }
       } else {
-        showSnackBar(res, context);
+        showSnackBar("Content too short", context);
       }
     } catch (e) {
       showSnackBar(e.toString(), context);
@@ -123,8 +132,9 @@ class _AddPostState extends State<AddPost> {
         centerTitle: false,
         actions: [
           TextButton(
-              onPressed: () =>
-                  postImage(user.uid, user.username, user.photoUrl),
+              onPressed: () {
+                postImage(user.uid, user.username, user.photoUrl);
+              },
               child: Text(
                 "Post",
                 style: TextStyle(
@@ -150,14 +160,21 @@ class _AddPostState extends State<AddPost> {
               backgroundImage: NetworkImage(user.photoUrl),
             ),
             SizedBox(
-              width: size.width * 0.8,
-              child: TextField(
-                controller: _textEditingController,
-                decoration: const InputDecoration(
-                    hintText: "Write a caption...", border: InputBorder.none),
-                maxLines: 10,
-              ),
+              width: 20,
             ),
+            Expanded(
+                child: Container(
+              color: Colors.amber,
+              // height: 2,
+              padding: EdgeInsets.all(5),
+              child: Text(
+                "Your post will be approved by " +
+                    appName +
+                    " before it appears on Feeds",
+                style: TextStyle(color: blackColor),
+              ),
+            ))
+
             // SizedBox(
             //   width: 45,
             //   height: 45,
@@ -174,6 +191,22 @@ class _AddPostState extends State<AddPost> {
             // )
           ],
         ),
+        Row(
+          children: [
+            SizedBox(
+              width: size.width * 0.8,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: TextField(
+                  controller: _textEditingController,
+                  decoration: const InputDecoration(
+                      hintText: "Write a caption...", border: InputBorder.none),
+                  maxLines: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
         _file != null
             ? Column(
                 children: [
@@ -188,7 +221,7 @@ class _AddPostState extends State<AddPost> {
                     ),
                   ),
                   SizedBox(
-                    width: size.width / 2,
+                    // width: size.width / 1.5,
                     height: 300,
                     child: AspectRatio(
                         aspectRatio: 487 / 451,

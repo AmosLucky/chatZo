@@ -74,46 +74,61 @@ class _SignUpState extends State<SignUp> {
             child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 width: double.infinity,
-                child: Column(children: [
-                  Flexible(
-                    child: Container(),
-                    flex: 2,
+                child: ListView(children: [
+                  SizedBox(
+                    height: 35,
                   ),
-                  Logo(),
+                  // Flexible(
+                  //   child: Container(),
+                  //   flex: 2,
+                  // ),
+                  Container(alignment: Alignment.center, child: Logo()),
                   // SvgPicture.asset(
                   //   "assets/images/ic_instagram.svg",
                   //   color: primaryColor,
                   //   height: 64,
                   // ),
                   const SizedBox(height: 20),
-                  Stack(
-                    children: [
-                      _image != null
+                  // Stack(
+                  //   children: [
+                  InkWell(
+                    onTap: () {
+                      pickImage();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      child: _image != null
                           ? CircleAvatar(
                               radius: 64,
                               backgroundImage: MemoryImage(_image!),
                             )
                           : CircleAvatar(
+                              backgroundColor: Colors.white,
                               radius: 64,
-                              backgroundImage:
-                                  NetworkImage("https://bit.ly/3msSZIF"),
+                              child: Image.asset(
+                                "assets/images/upload_photo.jpeg",
+                                height: 70,
+                              ),
                             ),
-                      Positioned(
-                          bottom: -10,
-                          left: 80,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.add_a_photo,
-                            ),
-                            onPressed: () {
-                              pickImage();
-                            },
-                          ))
-                    ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  // Positioned(
+                  //     bottom: -10,
+                  //     left: 80,
+                  //     child: IconButton(
+                  //       icon: Icon(
+                  //         Icons.add_a_photo,
+                  //         color: Colors.grey,
+                  //       ),
+                  //       onPressed: () {
+                  //         pickImage();
+                  //       },
+                  //     )),
+                  //   ],
+                  // ),
+                  // const SizedBox(
+                  //   height: 24,
+                  // ),
                   TextInputField(
                       textEditingController: _usernameController,
                       textInputType: TextInputType.text,
@@ -173,10 +188,10 @@ class _SignUpState extends State<SignUp> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Flexible(
-                    child: Container(),
-                    flex: 2,
-                  ),
+                  // Flexible(
+                  //   child: Container(),
+                  //   flex: 2,
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

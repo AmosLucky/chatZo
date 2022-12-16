@@ -9,7 +9,8 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       appName,
-      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+      style: TextStyle(
+          fontSize: 30, fontWeight: FontWeight.bold, fontFamily: "Raleway"),
     );
   }
 }

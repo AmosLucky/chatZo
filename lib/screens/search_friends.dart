@@ -103,8 +103,16 @@ class _SearchFriendsState extends State<SearchFriends> {
 
         return data.length == 0
             ? Center(
-                child: Text(
-                    "You dont have any friend.\nPlease search for a friend to start chatting"))
+                child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Icon(Icons.search),
+                  ),
+                  Text(
+                      "You dont have any friend yet.\nPlease search for a friend to start chatting"),
+                ],
+              ))
             : ListView.builder(
                 shrinkWrap: true,
                 //reverse: true,

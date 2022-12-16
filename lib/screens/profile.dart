@@ -79,7 +79,7 @@ class _ProfileState extends State<Profile> {
                       onTap: () {
                         options(context);
                       },
-                      child: Icon(Icons.delete)),
+                      child: Icon(Icons.more_vert)),
                 )
               ],
             ),
@@ -107,13 +107,33 @@ class _ProfileState extends State<Profile> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 buildSatColumn(postLent, "post"),
-                                buildSatColumn(following, "FolloWing"),
+                                buildSatColumn(following, "Following"),
                                 buildSatColumn(followers, "Followers"),
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
+                                user!.uid ==
+                                        auth.FirebaseAuth.instance.currentUser!
+                                            .uid
+                                    ? Container()
+                                    : Container(
+                                        height: 25,
+                                        margin: EdgeInsets.only(top: 20),
+                                        child: InkWell(
+                                            onTap: () {},
+                                            child: MaterialButton(
+                                                onPressed: () {},
+                                                color: Colors.red,
+                                                child: Text(
+                                                  "Chat",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ))),
+                                      ),
                                 user!.uid ==
                                         auth.FirebaseAuth.instance.currentUser!
                                             .uid
@@ -150,8 +170,8 @@ class _ProfileState extends State<Profile> {
                                             },
                                           )
                                         : FollowButton(
-                                            backgroundColor: Colors.blue,
-                                            borderColor: Colors.blue,
+                                            backgroundColor: blueColor,
+                                            borderColor: blueColor,
                                             text: "Follow",
                                             textColor: Colors.white,
                                             function: () async {

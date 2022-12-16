@@ -27,6 +27,13 @@ class AuthMethods {
 
     return model.User.fromDocument(snapshot);
   }
+  Future<model.User> getUserById(String friendId) async {
+    User currentUser = _firebaseAuth.currentUser!;
+    DocumentSnapshot snapshot =
+        await _firebaseFirestore.collection("users").doc(friendId).get();
+
+    return model.User.fromDocument(snapshot);
+  }
 
   Future<String> signUp(
       {required String username,
