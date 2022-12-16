@@ -5,10 +5,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:social_app/Utils/colors.dart';
 import 'package:social_app/Utils/dimensions.dart';
+import 'package:social_app/Utils/global_variables.dart';
 import 'package:social_app/models/post.dart';
 import 'package:social_app/resources/auth_methods.dart';
 import 'package:social_app/resources/firestore_methods.dart';
 import 'package:social_app/screens/friends.dart';
+import 'package:social_app/screens/search.dart';
+import 'package:social_app/screens/search_friends.dart';
 import 'package:social_app/widgets/post_card.dart';
 
 import '../models/User.dart';
@@ -50,8 +53,10 @@ class _FeedsState extends State<Feeds> {
       appBar: size.width > webScreenSize
           ? null
           : AppBar(
+              elevation: 0,
+              backgroundColor: blueColor,
               title: Text(
-                "ChatZo",
+                appName,
                 style: TextStyle(color: Colors.white, fontFamily: "Roboto"),
               ),
               // title: SvgPicture.network(
@@ -63,10 +68,10 @@ class _FeedsState extends State<Feeds> {
                 IconButton(
                     onPressed: () {
                       var route = MaterialPageRoute(
-                          builder: (BuildContext) => FriendList());
+                          builder: (BuildContext) => Search());
                       Navigator.push(context, route);
                     },
-                    icon: Icon(Icons.message))
+                    icon: Icon(Icons.search))
               ],
             ),
       body: isLoading

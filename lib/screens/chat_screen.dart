@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:social_app/models/User.dart';
 
 import '../Utils/utils.dart';
+import '../providers/user_provider.dart';
 import '../resources/firestore_methods.dart';
 import '../widgets/comment_card.dart';
 import '../widgets/message.dart';
@@ -61,6 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var currentUser = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -135,6 +138,7 @@ class _ChatScreenState extends State<ChatScreen> {
               }
               //print("lll");
               FirestoreMethod().postMessage(
+                  currentUser: currentUser,
                   chatId: chatId,
                   receiver: widget.receiver,
                   sender: currentUserId,

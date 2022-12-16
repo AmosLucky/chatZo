@@ -12,6 +12,7 @@ import 'package:social_app/widgets/follow_button.dart';
 
 import '../models/User.dart';
 import '../providers/user_provider.dart';
+import '../widgets/account_delet_dialog.dart';
 
 class Profile extends StatefulWidget {
   final User? user;
@@ -71,19 +72,32 @@ class _ProfileState extends State<Profile> {
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
               title: Text(user!.username),
+              actions: [
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  child: InkWell(
+                      onTap: () {
+                        options(context);
+                      },
+                      child: Icon(Icons.delete)),
+                )
+              ],
             ),
             body: ListView(children: [
               Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey,
+                    backgroundImage: NetworkImage(user!.photoUrl),
+                    radius: 40,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        backgroundImage: NetworkImage(user!.photoUrl),
-                        radius: 40,
-                      ),
                       Expanded(
                         flex: 1,
                         child: Column(
@@ -230,5 +244,25 @@ class _ProfileState extends State<Profile> {
         )
       ],
     );
+  }
+
+  options(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => Dialog(
+              child: ListView(
+                  shrinkWrap: true,
+                  children: ["Delete Account"]
+                      .map((e) => InkWell(
+                            onTap: () {
+                              accountDeleteDialog(context);
+                            },
+                            child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 12, horizontal: 16),
+                                child: Text(e)),
+                          ))
+                      .toList()),
+            ));
   }
 }

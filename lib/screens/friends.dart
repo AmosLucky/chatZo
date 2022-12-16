@@ -4,11 +4,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 import 'package:social_app/models/User.dart';
 import 'package:social_app/resources/firestore_methods.dart';
 import 'package:social_app/screens/chat_screen.dart';
 import 'package:social_app/screens/search_friends.dart';
 import 'package:social_app/widgets/user_widget.dart';
+
+import '../providers/user_provider.dart';
 
 class FriendList extends StatefulWidget {
   const FriendList({Key? key}) : super(key: key);
@@ -18,16 +21,18 @@ class FriendList extends StatefulWidget {
 }
 
 class _FriendListState extends State<FriendList> {
-  String currentUserId = "";
+  //String currentUserId = "";
   @override
   void initState() {
-    currentUserId = auth.FirebaseAuth.instance.currentUser!.uid;
+    //  currentUserId = auth.FirebaseAuth.instance.currentUser!.uid;
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<UserProvider>(context).getUser;
+    // currentUserId = user.uid;
     return Scaffold(
         appBar: AppBar(
             title: Container(
@@ -53,14 +58,14 @@ class _FriendListState extends State<FriendList> {
             )),
           ),
         )),
-        body: friendList());
+        body: friendList(user));
   }
 
-  friendList() {
+  friendList(User user) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection("users")
-          .doc(currentUserId)
+          .doc(user.uid)
           .collection("friends")
           .orderBy("time", descending: true)
           .snapshots(),
@@ -80,6 +85,7 @@ class _FriendListState extends State<FriendList> {
                 // controller: scrollController,
                 itemCount: (snapshot.data! as dynamic).docs.length,
                 itemBuilder: (context, index) {
+                 // print(data[index]["friendId"]);
                   // print(index);
                   return UserWidget(data: data[index]);
                   // return CommentCard(

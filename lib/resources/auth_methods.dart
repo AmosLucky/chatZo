@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app/resources/storage_methods.dart';
 import 'package:social_app/models/User.dart' as model;
+import 'package:social_app/screens/signin.dart';
 
 class AuthMethods {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -15,6 +16,14 @@ class AuthMethods {
     User currentUser = _firebaseAuth.currentUser!;
     DocumentSnapshot snapshot =
         await _firebaseFirestore.collection("users").doc(currentUser.uid).get();
+
+    return model.User.fromDocument(snapshot);
+  }
+
+  Future<model.User> getFriendData(String friendId) async {
+    User currentUser = _firebaseAuth.currentUser!;
+    DocumentSnapshot snapshot =
+        await _firebaseFirestore.collection("users").doc(friendId).get();
 
     return model.User.fromDocument(snapshot);
   }
@@ -80,12 +89,17 @@ class AuthMethods {
         result = "All feild required";
       }
     } catch (e) {
-      result = e.toString();
+      result = "Username or password incorrect";
     }
     return result;
   }
 
   Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
+
+  deleteAccount(BuildContext context) async {
+    await _firebaseAuth.currentUser!.delete();
     await _firebaseAuth.signOut();
   }
 }

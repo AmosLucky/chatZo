@@ -147,24 +147,6 @@ class _PostCardState extends State<PostCard> {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12),
           child: Row(children: [
-            LikeAnimation(
-              isAnimaing: widget.post.likes.contains(user!.uid),
-              smallLike: true,
-              child: IconButton(
-                  onPressed: () async {
-                    await FirestoreMethod().likePost(
-                        widget.post.postId, user!.uid, widget.post.likes);
-                    // setState(() {
-                    //   isLikeAnimating = true;
-                    // });
-                  },
-                  icon: widget.post.likes.contains(user!.uid)
-                      ? Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        )
-                      : Icon(Icons.favorite_border)),
-            ),
             IconButton(
                 onPressed: () {
                   var route = MaterialPageRoute(
@@ -174,12 +156,31 @@ class _PostCardState extends State<PostCard> {
                   Navigator.of(context).push(route);
                 },
                 icon: Icon(Icons.comment)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.send)),
+            //IconButton(onPressed: () {}, icon: Icon(Icons.send)),
             Expanded(
                 child: Container(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                        onPressed: () {}, icon: Icon(Icons.bookmark_outline))))
+              alignment: Alignment.topRight,
+              child: LikeAnimation(
+                isAnimaing: widget.post.likes.contains(user!.uid),
+                smallLike: true,
+                child: IconButton(
+                    onPressed: () async {
+                      await FirestoreMethod().likePost(
+                          widget.post.postId, user!.uid, widget.post.likes);
+                      // setState(() {
+                      //   isLikeAnimating = true;
+                      // });
+                    },
+                    icon: widget.post.likes.contains(user!.uid)
+                        ? Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.favorite_border)),
+              ),
+              // child: IconButton(
+              //     onPressed: () {}, icon: Icon(Icons.comment))
+            ))
           ]),
         ),
 

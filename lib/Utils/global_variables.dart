@@ -9,7 +9,7 @@ import 'package:social_app/screens/search.dart';
 
 var homeScreenItems = [
   Feeds(),
-  Search(),
+  // Search(),
   AddPost(),
   FriendList(),
   Profile(where: "profile")

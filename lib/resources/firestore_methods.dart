@@ -139,7 +139,8 @@ class FirestoreMethod {
       {required String chatId,
       required User receiver,
       required String sender,
-      required String message}) async {
+      required String message,
+      required User currentUser}) async {
     var time = DateTime.now();
     var snap = await _firebaseFirestore
         .collection("chats")
@@ -153,17 +154,19 @@ class FirestoreMethod {
       "time": time
     });
 
-    updateFriends(receiver.uid, sender, message);
+    updateFriends(receiver.uid, sender, message, currentUser, receiver);
   }
 
-  Future<void> updateFriends(
-      String friendId, String userId, String last_messge) async {
+  Future<void> updateFriends(String friendId, String userId, String last_messge,
+      User currenUser, User reciever) async {
     var snap = await _firebaseFirestore
         .collection("users")
         .doc(userId)
         .collection("friends")
         .doc(friendId)
         .set({
+      "photoUrl": reciever.photoUrl,
+      "username": reciever.username,
       "friendId": friendId,
       "last_message": last_messge,
       "time": DateTime.now()
@@ -175,6 +178,8 @@ class FirestoreMethod {
         .collection("friends")
         .doc(userId)
         .set({
+      "photoUrl": currenUser.photoUrl,
+      "username": currenUser.username,
       "friendId": userId,
       "last_message": last_messge,
       "time": DateTime.now()
