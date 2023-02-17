@@ -77,15 +77,28 @@ class _FriendListState extends State<FriendList> {
 
         return data.length == 0
             ? Center(
-                child: Text(
-                    "You dont have any friend.\nPlease search for a friend to start chatting"))
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      var route = MaterialPageRoute(
+                          builder: (BuildContext) => SearchFriends());
+                      Navigator.push(context, route);
+                    },
+                    child: Icon(Icons.search),
+                  ),
+                  Text(
+                      "You dont have any friend yet.\nPlease search for a friend to start chatting"),
+                ],
+              ))
             : ListView.builder(
                 shrinkWrap: true,
                 //reverse: true,
                 // controller: scrollController,
                 itemCount: (snapshot.data! as dynamic).docs.length,
                 itemBuilder: (context, index) {
-                 // print(data[index]["friendId"]);
+                  // print(data[index]["friendId"]);
                   // print(index);
                   return UserWidget(data: data[index]);
                   // return CommentCard(

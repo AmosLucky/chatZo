@@ -101,7 +101,7 @@ class _PostCardState extends State<PostCard> {
               onTap: () {
                 var route = MaterialPageRoute(
                     builder: (BuildContext) => Profile(
-                          user: user!,
+                          user: author!,
                           where: "others",
                         ));
                 Navigator.push(context, route);

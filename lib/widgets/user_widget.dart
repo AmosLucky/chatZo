@@ -4,6 +4,7 @@ import 'package:social_app/screens/chat_screen.dart';
 
 import '../models/User.dart';
 import '../resources/firestore_methods.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class UserWidget extends StatefulWidget {
   var data;
@@ -44,7 +45,10 @@ class _UserWidgetState extends State<UserWidget> {
         : ListTile(
             onTap: () {
               var route = MaterialPageRoute(
-                  builder: (BuildContext) => ChatScreen(receiver: user!));
+                  builder: (BuildContext) => ChatScreen(
+                        receiver: user!,
+                        senderId: auth.FirebaseAuth.instance.currentUser!.uid,
+                      ));
               Navigator.push(context, route);
             },
             leading: CircleAvatar(

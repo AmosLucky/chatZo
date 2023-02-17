@@ -151,7 +151,8 @@ class FirestoreMethod {
       "receiver": receiver.uid,
       "sender": sender,
       "message": message,
-      "time": time
+      "time": time,
+      "timestamp": DateTime.now().microsecondsSinceEpoch.toString()
     });
 
     updateFriends(receiver.uid, sender, message, currentUser, receiver);

@@ -72,7 +72,10 @@ class _SearchFriendsState extends State<SearchFriends> {
                 return ListTile(
                   onTap: () {
                     var route = MaterialPageRoute(
-                        builder: (BuildContext) => ChatScreen(receiver: user));
+                        builder: (BuildContext) => ChatScreen(
+                          receiver: user,
+                           senderId: auth.FirebaseAuth.instance.currentUser!.uid,
+                          ));
                     Navigator.push(context, route);
                   },
                   leading: CircleAvatar(

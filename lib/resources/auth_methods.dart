@@ -7,6 +7,8 @@ import 'package:social_app/resources/storage_methods.dart';
 import 'package:social_app/models/User.dart' as model;
 import 'package:social_app/screens/signin.dart';
 
+import '../constants.dart';
+
 class AuthMethods {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -27,6 +29,7 @@ class AuthMethods {
 
     return model.User.fromDocument(snapshot);
   }
+
   Future<model.User> getUserById(String friendId) async {
     User currentUser = _firebaseAuth.currentUser!;
     DocumentSnapshot snapshot =

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:social_app/Utils/colors.dart';
 import 'package:social_app/resources/auth_methods.dart';
 import 'package:social_app/resources/firestore_methods.dart';
+import 'package:social_app/screens/chat_screen.dart';
 import 'package:social_app/screens/signin.dart';
 import 'package:social_app/widgets/follow_button.dart';
 
@@ -79,7 +80,10 @@ class _ProfileState extends State<Profile> {
                       onTap: () {
                         options(context);
                       },
-                      child: Icon(Icons.more_vert)),
+                      child: user!.uid ==
+                              auth.FirebaseAuth.instance.currentUser!.uid
+                          ? Icon(Icons.more_vert)
+                          : Container()),
                 )
               ],
             ),
@@ -124,8 +128,17 @@ class _ProfileState extends State<Profile> {
                                         child: InkWell(
                                             onTap: () {},
                                             child: MaterialButton(
-                                                onPressed: () {},
-                                                color: Colors.red,
+                                                onPressed: () {
+                                                  var route = MaterialPageRoute(
+                                                      builder: (BuildContext) =>
+                                                          ChatScreen(
+                                                              receiver: user!,
+                                                              senderId: auth.FirebaseAuth.instance.currentUser!.uid,
+                                                              ));
+                                                  Navigator.push(
+                                                      context, route);
+                                                },
+                                                color: Colors.green,
                                                 child: Text(
                                                   "Chat",
                                                   style: TextStyle(

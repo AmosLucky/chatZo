@@ -15,4 +15,4 @@ var homeScreenItems = [
   Profile(where: "profile")
 ];
 
-var appName = "ChatZo";
+var appName = "SwisChat";

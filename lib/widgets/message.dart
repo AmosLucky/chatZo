@@ -22,7 +22,7 @@ class MessageWidget extends StatelessWidget {
             Container(
                 width: MediaQuery.of(context).size.width / 2.3,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 73, 59, 59),
+                  color: Color.fromARGB(255, 28, 27, 27),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -30,14 +30,16 @@ class MessageWidget extends StatelessWidget {
                 // height: 30,
                 child: Container(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    // mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: data['sender'] == currentUserId
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                     children: [
                       Text(
                         data['message'],
                         textAlign: data['sender'] == currentUserId
                             ? TextAlign.end
-                            : TextAlign.left,
+                            : TextAlign.start,
                       ),
                     ],
                   ),
